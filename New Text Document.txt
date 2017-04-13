@@ -1,0 +1,17 @@
+Bước 1 : Tạo 1 pool DHCP ip address mà mình muốn dùng.
+ws3750(config)# ip dhcp pool mypool
+Bước 2 : Đánh network và subnetmask mà mình muốn dùng.
+ws3750(dhcp-config)# network 192.168.50.0 255.255.255.0
+Bước 3: Chỉ định DNS cho các client.
+ws3750(dhcp-config)#dns-server 192.168.100.1 192.168.100.2
+Ở đây mình có 2 server,nếu các bạn có 1 server thì điền ip address của server đó thôi.
+Bước 4: Chỉ định defauft gateway cho các client.
+ws3750(dhcp-config)#default-router 192.168.50.1
+Bước 5 : Tạo các IP mà mình muốn loại trừ
+ws3750(config)#ip dhcp excluded-address 192.168.50.1
+Nếu các bạn muốn loại trừ range ip thì đánh thêm cái địa chỉ cuối nữa là xong.
+ws3750(config)#ip dhcp excluded-address 192.168.50.1 192.168.50.100.
+ws3750(config)#end
+ws3750(config)#do Write (lưu cấu hình lại)
+Bước 6 : Kiểm tra client kết nối và được cấp DHCP.
+ws3750#show ip dhcp binding (hiển thị tất cả các ip address mà được cấp.)
